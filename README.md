@@ -2,6 +2,14 @@
 
 Aqui iremos criar uma EC2, apenas definiremos algumas informações como o tipo da instancia, uma tag e a ami.**
 
+Primeiro crie um diretorio para abrigar nosso codigo, por exemplo
+
+```bash
+$ mkdir codificando_a_infra
+
+$ cd codificando_a_infra
+```
+
 Criaremos 3 arquivos, todos terminam com a extensão **.tf**
 
 * Provider: Onde iremos configurar o acesso a conta AWS
