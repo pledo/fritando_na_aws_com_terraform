@@ -1,9 +1,27 @@
-### Terraform e AWS, agora vamos conversar sobre infra as code
-##### Subindo uma instancia com alguns atributos definidos
-###### Terraform correria, bateNo na lomba da AWS.
-Sim, a ideia desse repo é ajudar a comunidade a iniciar na manha com o Terraform.
-Subindo componente por componente, entendendo como interliga-los eleGANteMente(sutaque do SuRL) e depois pensando em como facilitar a vida dos devs entregando uma infra self-service.
+### Instalando o Terraform
+##### Fácil e rápido:
 
-Fiz a divisão das sessões por branchs **(me falaram que eu não manjava de git, ai mandei essa, branch pra Kar..o)**
 
-Vamos la então, começando do começo ...
+**1. Entre o site e escolha o binario da sua plataforma.**
+[Download_Terraform](https://www.terraform.io/downloads.html)
+
+**2. Baixe o binário**
+```bash
+$ wget https://releases.hashicorp.com/terraform/0.8.0/terraform_0.8.0_linux_amd64.zip
+```
+**3. Descomprima-o e envie para um dos diretorios do seu PATH, por exemplo:**
+```bash
+$ unzip terraform_0.8.0_linux_amd64.zip -d /usr/local/sbin
+```
+
+**3. Teste mandando um:**
+```bash
+$ terraform -v
+
+Terraform v0.7.11
+Your version of Terraform is out of date! The latest version
+is 0.8.0. You can update by downloading from www.terraform.io
+```
+
+##### Pronto, agora podemos começar a brincadeira, vamos para o proximo passo
+
