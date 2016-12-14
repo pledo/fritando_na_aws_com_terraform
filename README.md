@@ -1,62 +1,43 @@
-#### Subindo o primeiro recurso
+#### Definindo mais atributos da EC2
 
-Aqui iremos criar uma EC2, apenas definiremos algumas informações como o tipo da instancia, uma tag e a ami.**
+No passo anterior apenas definimos a ami e  o tipo da instancia, o restante dos atributos tipo a VPC e Subnet por exmeplo.
+Agora iremos definir esses e outros atributos.
 
-Criaremos 3 arquivos, todos terminam com a extensão **.tf**
-
-* Provider: Onde iremos configurar o acesso a conta AWS
+Lembrando que a estrutura continua com os tres arquivos:
 
 ```bash
-$ cat provider.tf
-provider "aws" {
-  region = "us-east-1"
-    access_key = "********"
-      secret_key = "*******"
-
-}
+$ ls -1
+ec2_alguns_atributos.tf
+outputs.tf
+provider.tf
 ```
+Veja abaixo, é bem tranquilis ;)
 
-* Output: Configuramos as saidas que queremos exibir
-```
-$ cat outputs.tf
-output "instance_id" {
-  value = "${aws_instance.instancia_simples.id}"
-
-}
-
-output "private_dns" {
-  value = "${aws_instance.instancia_simples.private_dns}"
-
-}
-
-...
-```
-
-* primeira_instancia: Arquivo com as ações que queremos que o TerraForm realize
-
-```
-$ cat first_instance.tf 
-resource "aws_instance" "instancia_simples" {
-  ami           = "ami-40d28157"
-  instance_type = "t2.micro"
+```bash
+$ cat ec2_alguns_atributos.tf 
+resource "aws_instance" "ec2_algumas_vars" {
+  ami                         = "ami-40d28157"
+  availability_zone           = "us-east-1a"
+  ebs_optimized               = "false"
+  disable_api_termination     = "false"
+  instance_type               = "t2.micro"
+  key_name                    = "devops_pledo"
+  monitoring                  = "true"
+  vpc_security_group_ids      = ["sg-e4feba9e"]
+  subnet_id                   = "subnet-5cedb174"
+  associate_public_ip_address = "true"
+  source_dest_check           = "false"
   tags {
-    "Name" = "devops_terraform_tags"
+    "Name" = "devops_terraform"
   
   }
 
 }
 ```
+**Perceba que os valores da subnet, secutiry group e key ja devem ter sido criados anteriormente. Não esqueça desse detalhe. Vá no console e pegue essas informações**
 
-Não esqueça de configurar suas chaves no arquivo provider.tf e a região correta. Com isso iremos rodar os comandos a seguir:
+Ainda teremos os arquivos de output e provider ok? 
 
-```bash
-$ terraform plan
-```
+Rode os comandos **terraform plan** e **terraform apply** e confira o resultado
 
-Dar uma conferida e depois roda o apply
-```bash
-$ terraform apply
-```
-
-Confere la no console da AWS a maquiNosa subindo....... Cê é looooooooKo
 
