@@ -1,27 +1,62 @@
-### Instalando o Terraform
-##### Fácil e rápido:
+#### Subindo o primeiro recurso
 
+Aqui iremos criar uma EC2, apenas definiremos algumas informações como o tipo da instancia, uma tag e a ami.**
 
-**1. Entre o site e escolha o binario da sua plataforma.**
-[Download_Terraform](https://www.terraform.io/downloads.html)
+Criaremos 3 arquivos, todos terminam com a extensão **.tf**
 
-**2. Baixe o binário**
+* Provider: Onde iremos configurar o acesso a conta AWS
+
 ```bash
-$ wget https://releases.hashicorp.com/terraform/0.8.0/terraform_0.8.0_linux_amd64.zip
-```
-**3. Descomprima-o e envie para um dos diretorios do seu PATH, por exemplo:**
-```bash
-$ unzip terraform_0.8.0_linux_amd64.zip -d /usr/local/sbin
-```
+$ cat provider.tf
+provider "aws" {
+  region = "us-east-1"
+    access_key = "********"
+      secret_key = "*******"
 
-**3. Teste mandando um:**
-```bash
-$ terraform -v
-
-Terraform v0.7.11
-Your version of Terraform is out of date! The latest version
-is 0.8.0. You can update by downloading from www.terraform.io
+}
 ```
 
-##### Pronto, agora podemos começar a brincadeira, vamos para o proximo passo
+* Output: Configuramos as saidas que queremos exibir
+```
+$ cat outputs.tf
+output "instance_id" {
+  value = "${aws_instance.instancia_simples.id}"
+
+}
+
+output "private_dns" {
+  value = "${aws_instance.instancia_simples.private_dns}"
+
+}
+
+...
+```
+
+* primeira_instancia: Arquivo com as ações que queremos que o TerraForm realize
+
+```
+$ cat first_instance.tf 
+resource "aws_instance" "instancia_simples" {
+  ami           = "ami-40d28157"
+  instance_type = "t2.micro"
+  tags {
+    "Name" = "devops_terraform_tags"
+  
+  }
+
+}
+```
+
+Não esqueça de configurar suas chaves no arquivo provider.tf e a região correta. Com isso iremos rodar os comandos a seguir:
+
+```bash
+$ terraform plan
+```
+
+Dar uma conferida e depois roda o apply
+```bash
+$ terraform apply
+```
+
+Confere la no console da AWS a maquiNosa subindo....... Cê é looooooooKo
 
