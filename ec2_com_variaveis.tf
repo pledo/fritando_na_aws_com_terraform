@@ -1,23 +1,3 @@
-#### Removendo o hard code, elegantes variáveis
-
-Bom, aqui adicionamos um arquivo, chamado ``vars.tf``, nele teremos
-os nomes das variaveis e os valores.
-
-Agora no arquivo ``ec2_com_variaveis.tf`` teremos os nomes dos atributos e as variaves com os valores desses atributos. 
-
-Lembrando que a estrutura continua com os tres arquivos:
-
-```bash
-$ ls -1
-ec2_com_variaveis.tf
-outputs.tf
-provider.tf
-vars.tf
-```
-Segue o conteudo do arquivo com as configurações da instancia.
-
-```bash
-$ cat ec2_com_variaveis.tf 
 resource "aws_instance" "ec2_algumas_vars" {
   ami                         = "${var.ami}"
   availability_zone           = "${var.availability_zone}"
@@ -32,11 +12,6 @@ resource "aws_instance" "ec2_algumas_vars" {
   source_dest_check           = "${var.source_dest_check}"
   tags {
     "Name" = "${lookup(var.tags,"instance_name")}"
-  
   }
 
 }
-```
-
-**Estamos chegando la, proximo passo é criarmos outros recursos e 
-interliga-los em tempo de execução, vamos lá**
