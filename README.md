@@ -1,4 +1,4 @@
-#### Criando mas recursos, ELB e SGs
+#### Criando mais recursos, ELB e SGs
 
 Agora além do arquivo que descrevemos como uma ec2 deve subir também criaremos um Load Balancer e dois security groups, um para a maquina e o outro para o ELB. 
 Além de cria-los iremos interligá-los em tempo de execução, ou seja, depois que esses recursos terminarem de subir já estarão funcionando em conjunto, fino de mais hein?
