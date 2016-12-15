@@ -1,4 +1,4 @@
-resource "aws_instance" "ec2_algumas_vars" {
+resource "aws_instance" "ec2_sg_elb" {
   ami                         = "${var.ami}"
   availability_zone           = "${var.availability_zone}"
   ebs_optimized               = "${var.ebs_optimized}"
@@ -10,8 +10,8 @@ resource "aws_instance" "ec2_algumas_vars" {
   subnet_id                   = "${var.subnet_id}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
   source_dest_check           = "${var.source_dest_check}"
+
   tags {
     "Name" = "${lookup(var.tags,"instance_name")}"
   }
-
 }
