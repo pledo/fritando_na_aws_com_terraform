@@ -5,7 +5,7 @@ os nomes das variaveis e os valores.
 
 Agora no arquivo ``ec2_com_variaveis.tf`` teremos os nomes dos atributos e as variaves com os valores desses atributos. 
 
-Lembrando que a estrutura continua com os tres arquivos:
+Lembrando que a estrutura continua com os tres arquivos anteriores:
 
 ```bash
 $ ls -1
