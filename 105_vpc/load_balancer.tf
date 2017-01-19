@@ -1,8 +1,8 @@
 resource "aws_elb" "elb_maroto" {
   name                        = "${var.sg_elb_name}"
-  subnets                     = ["${var.subnet_id}"]
+  subnets                     = ["${aws_subnet.subnet_pub1.id}"]
   security_groups             = ["${aws_security_group.sg_elb.id}"]
-  instances                   = ["${aws_instance.ec2_devops_pledo_tf.id}"]
+#  instances                   = ["${aws_instance.ec2_devops_pledo_tf.id}"]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true

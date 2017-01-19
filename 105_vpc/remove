@@ -1,7 +1,0 @@
-	deleted:    ../104_ec2_sg_e_elb/README.md
-	deleted:    ../104_ec2_sg_e_elb/ec2_com_sg_e_elb.tf
-	deleted:    ../104_ec2_sg_e_elb/load_balancer.tf
-	deleted:    ../104_ec2_sg_e_elb/outputs.tf
-	deleted:    ../104_ec2_sg_e_elb/provider.tf
-	deleted:    ../104_ec2_sg_e_elb/security_group.tf
-	deleted:    ../104_ec2_sg_e_elb/vars.tf

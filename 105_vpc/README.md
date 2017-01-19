@@ -1,58 +1,26 @@
-#### Criando mais recursos, ELB e SGs
+#### Indo para as fundações, criando nossa VPC com subnets 
 
-Agora além do arquivo que descrevemos como uma ec2 deve subir também criaremos um Load Balancer e dois security groups, um para a maquina e o outro para o ELB. 
-Além de cria-los iremos interligá-los em tempo de execução, ou seja, depois que esses recursos terminarem de subir já estarão funcionando em conjunto, fino de mais hein?
+Bem, começamos bem na manha, subindo uma maquiNiNHa de boa, fomos incrementando a entrega inserindo novos atributos na instancia, criando security groups, loadbalancer e linkando tudo isso em tempo de execução. Agora iremos fechar criando nossa VPC, duas subnets, uma privada e outra publica, configurando as rotas e todos os elementos para termos um ambiente seguro e funcional e seguro.
 
-```bash
-$ cat security_group.tf
-resource "aws_security_group" "sg_maroto" {
-    name = "${var.sg_name}"
-...
-ingress {
-       from_port= 22
-       to_port = 22
-       protocol= 6 
-       cidr_blocks = ["189.10.20.190/32"]
-    
-}
-...
-egress {
-       from_port= 0 
-       to_port = 0
-       protocol= -1
-       cidr_blocks = ["0.0.0.0/0"]
-    
-}
+Para isso teremos que criar alguns arquivos referentes aos componentes de rede, segue a minha lista:
 
-}
+- vpc_pub_priv.tf: Arquivo que cria a VPC, nele definimos o cidr e outros atributos
+- subnets.tf: Aqui criaremos as duas subnets, uma privada e outra publica
+- internet_gateway.tf: Para a subnet publica precisamos ter um internet gateway, 
+- nat_gateway.tf: Aqui temos o gateway por onde os recursos da subnet privada ira conseguir acessar a internet. Veja que temos a entrada: **depends_on = ["aws_eip.eip_for_nat_gw"]** isso significa que para criarmos o nat_gateway é necessário que um eip seja criado antes.
 
-resource "aws_security_group" "sg_elb" {
-    name = "${var.sg_elb_name}"
-    description= "${var.sg_description}"
-...
-```
-Catzão no arquivo do ELB agora.
+- eip.tf: Nesse arquivo criamos um eip, que será associado ao nat_gateway da subnetprivada.
+- route_tables.tf: Agora precisamos criar rotas de rede para tudo que estiver na subnet publica saia pelo internet gateway e o que estiver na subnet privada saia pelo nat gateway.
 
-```bash
-$ cat load_balancer.tf 
-resource "aws_elb" "elb_maroto" {
-  name                        = "${var.sg_elb_name}"
-  subnets                     = ["${var.subnet_id}"]
-  security_groups             = ["${aws_security_group.sg_elb.id}"]
-  instances                   = ["${aws_instance.ec2_devops_pledo_tf.id}"]
-  cross_zone_load_balancing   = true
-  idle_timeout                = 400
-  connection_draining         = true
-  connection_draining_timeout = 400
-...
+**Pronto, agora já temos nossa vpc com subnets publica e privada, estamos prontos para ter um ambiente  com um nivel razoavel de segurança, o que for backend, banco de dados fica na subnet privada e o que for front end e tiver que ficar exposto colocamos na subnet publica.**
 
-resource "aws_lb_cookie_stickiness_policy" "elb-maroto-stickness" {
-  name                     = "elb-maroto-stickness"
-  load_balancer            = "${aws_elb.elb_maroto.id}"
-  lb_port                  = 80
-  cookie_expiration_period = 600
+Para testarmos o ambiente iremos subir duas maquinas, uma na subnete privada e a outra na publica. Para isso vamos criar dois security groups e um Elastic Load Balance
 
-}
+- security_group.tf: Aqui criamos  um sg para o elb e outro para as maquinas
 
-```
-**Lembre-se de consultar os valores dos recursos que já devem ter sido criados, como por exemplo a vpc, subnet publica**
+- load_balancer.tf: Nesse arquivo criamos o nosso elb que irá ter a maquina da subnet publica associado 
+
+- ec2s_pub_priv.tf: Aqui criamos as 2 maquinas para validarmos nosso ambiente
+
+**Obs: temos o que melhorar, tentar pegar mais informações de forma dinamica e menos do arquivo de variaveis, vamos deixar isso para depois ok?**
+
