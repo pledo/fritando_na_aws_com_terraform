@@ -1,7 +1,7 @@
 resource "aws_security_group" "sg_maroto" {
     name = "${var.sg_name}"
     description= "${var.sg_description}"
-    vpc_id= "${var.vpc_id}"
+    vpc_id= "${aws_vpc.vpc_pub_priv.id}"
 
     tags {
         "Name" = "${lookup(var.tags,"sg_tf_name")}"
@@ -11,7 +11,7 @@ resource "aws_security_group" "sg_maroto" {
        from_port= 22
        to_port = 22
        protocol= 6 
-       cidr_blocks = ["189.125.58.130/32"]
+       cidr_blocks = ["xxx.xxx.xxx.xxx/32"]
     }
 
     ingress {
@@ -35,17 +35,17 @@ resource "aws_security_group" "sg_maroto" {
 resource "aws_security_group" "sg_elb" {
     name = "${var.sg_elb_name}"
     description= "${var.sg_description}"
-    vpc_id= "${var.vpc_id}"
+    vpc_id= "${aws_vpc.vpc_pub_priv.id}"
 
     tags {
-        Name" = "${lookup(var.tags,"sg_tf_elb_name")}"
+        Name = "${lookup(var.tags,"sg_tf_elb_name")}"
     }
 
     ingress {
        from_port= 80
        to_port = 80
        protocol= 6
-       cidr_blocks = ["189.125.58.130/32"]
+       cidr_blocks = ["xxx.xxx.xxx.xxx/32"]
     }
 
     egress {
