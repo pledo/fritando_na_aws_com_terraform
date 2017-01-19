@@ -35,7 +35,7 @@ variable "monitoring" {
 }
 
 variable "subnet_id" {
-  default = ""
+  default = "" 
 }
 
 variable "associate_public_ip_address" {
@@ -55,11 +55,11 @@ variable "sg_name" {
 }
 
 variable "sg_description" {
-  default = "sg para apresentacao do tf"
+  default = "description ..."
 }
 
 variable "sg_elb_name" {
-  default = "devops-pledo-tf-elb"
+  default = "tf-elb"
 }
 
 #variable "access_key" { default = "" }
@@ -76,9 +76,9 @@ variable "vpc_security_group_ids" {
 
 variable "tags" {
   default = {
-    instance_name  = "devops_pledo_tf"
-    sg_tf_name     = "devops_pledo_tf_sg"
-    sg_tf_elb_name = "devops_pledo_tf_sg_elb"
-    env_elb        = "devops_pledo_tf_elb_dev"
+    instance_name  = "instance_tf"
+    sg_tf_name     = "tf_sg"
+    sg_tf_elb_name = "tf_sg_elb"
+    env_elb        = "_tf_elb_dev"
   }
 }

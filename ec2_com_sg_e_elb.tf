@@ -6,10 +6,11 @@ resource "aws_instance" "ec2_sg_elb" {
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.key_name}"
   monitoring                  = "${var.monitoring}"
-  vpc_security_group_ids      = "${var.vpc_security_group_ids}"
+  vpc_security_group_ids      = ["${aws_security_group.sg_maroto.id}"]
   subnet_id                   = "${var.subnet_id}"
   associate_public_ip_address = "${var.associate_public_ip_address}"
   source_dest_check           = "${var.source_dest_check}"
+  depends_on = ["aws_security_group.sg_maroto"]
 
   tags {
     "Name" = "${lookup(var.tags,"instance_name")}"
