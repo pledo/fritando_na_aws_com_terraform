@@ -3,7 +3,7 @@ variable "ami" {
 }
 
 variable "availability_zone" {
-  default = "us-east-1b"
+  default = "us-east-1a"
 }
 
 variable "ebs_optimized" {
@@ -19,7 +19,7 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  default = "devops"
+  default = "devops_pledo"
 }
 
 variable "monitoring" {
@@ -27,7 +27,7 @@ variable "monitoring" {
 }
 
 variable "subnet_id" {
-  default = "subnet-bccfa897"
+  default = ""
 }
 
 variable "associate_public_ip_address" {
@@ -40,7 +40,7 @@ variable "source_dest_check" {
 
 variable "vpc_security_group_ids" {
   type    = "list"
-  default = ["sg-a0e2f5db"]
+  default = [""]
 }
 
 variable "tags" {
